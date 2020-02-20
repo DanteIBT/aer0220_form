@@ -1,0 +1,212 @@
+<div class="container-fluid full-height">
+    <div class="row row-height">
+        <div class="col-lg-6 content-left">
+            <div class="content-left-wrapper">
+                <a href="https://aerobotplanet.com" id="logo" title=""><img src="http://aerobotplanet.com/images/aerobot-planet_logo_white.png" alt="" height="48px"></a>
+                <div>
+                    <figure><img src="http://aerobotplanet.com/images/aerobot-planet_online.svg" alt="" class="img-fluid"></figure>
+                    <h2>AEROBOT ACADEMY</h2>
+                    <p>Comienza el proceso de inscripción para el mejor curso de robótica para niños en el Tec de Monterrey Campus Puebla.</p>
+                    <a href="https://aerobotplanet.com/academy" class="btn_1 rounded">Ver Detalles</a>
+                    <a href="#start" class="btn_1 rounded mobile_btn">¡COMENZAR!</a>
+                </div>
+                <div class="copy">AEROBOT PLANET 2019</div>
+            </div>
+            <!-- /content-left-wrapper -->
+        </div>
+        <!-- /content-left -->
+
+        <div class="col-lg-6 content-right" id="start">
+            <div id="wizard_container">
+                <div id="top-wizard">
+                    <div id="progressbar"></div>
+                </div>
+                <!-- /top-wizard -->
+                <form id="wrapped" action="submit.php" method="POST">
+                    <input id="website" name="website" type="text" value="">
+                    <!-- Leave for security protection, read docs for details -->
+                    <div id="middle-wizard">
+                        <div class="step">
+                            <h3 class="main_question"><strong>Datos del Alumno</strong></h3>
+                            <div class="form-group">
+                                <input type="text" name="first_name" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Nombre (s)" onchange="getVals(this, 'first_name');">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="name_paternal" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Apellido Paterno" onchange="getVals(this, 'name_paternal');">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="name_maternal" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Apellido Materno" onchange="getVals(this, 'name_maternal');">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Fecha de nacimiento:</label>
+                                <input type="date" name="birthday_date" class="form-control required" placeholder="Fecha de nacimiento" onchange="getVals(this, 'name_paternal');">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="radio-inline"><input type="radio" name="optradio" value="H"> Hombre </label>
+                                <label class="radio-inline"><input type="radio" name="optradio" value="M"> Mujer </label>
+                            </div>
+
+                            <!-- Se muestra la lsita de ciudades consultando la base -->
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" name="city">
+                                        <option value="">Ciudad</option>
+                                        <option *ngFor="let city of citiesList">{{city.name}}</option>
+									</select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="curp" class="form-control required" placeholder="CURP / ID PERSONAL" onchange="getVals(this, 'curp');">
+                            </div>
+
+                        </div>
+                        <!-- /step-->
+
+                        <div class="step">
+                            <h3 class="main_question"><strong>Alergias y Condiciones Especiales</strong></h3>
+                            <div class="form-group">
+                                <textarea rows="8" name="alergias" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control" placeholder="¿El thinker cuenta con alergias o condiciones que requieran un trato especial?" onchange="getVals(this, 'alergias');"></textarea>
+                            </div>
+                        </div>
+                        <!-- /step-->
+
+
+                        <div class="step">
+                            <h3 class="main_question"><strong>Datos del Padre o Tutor</strong></h3>
+                            <div class="form-group">
+                                <input type="text" name="tutor_name" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Nombre Completo" onchange="getVals(this, 'tutor_name');">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" name="relationship" onchange="getVals(this, 'city');">
+                                        <option value="">Parentesco</option>
+                                        <option *ngFor="let relationship of relationshipList">{{relationship.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control required" placeholder="Correo Electrónico" onchange="getVals(this, 'email');">
+                            </div>
+
+                            <div class="form-group">
+                                <input type="email" name="email" class="form-control required" placeholder="Confirmar Correo" onchange="getVals(this, 'email2');">
+                            </div>
+                            <div class="form-group">
+                                <input type="phone" name="whatsapp" pattern="[0-9]+" oninvalid="this.setCustomValidity('Introduce un número válido')" oninput="setCustomValidity('')" aria-describebdy="n" maxlength="10" minlength="10" class="form-control required" placeholder="WhatsApp"
+                                    onchange="getVals(this, 'whatsapp');">
+                            </div>
+                            <div class="form-group">
+                                <input type="phone" name="phone" pattern="[0-9]+" oninvalid="this.setCustomValidity('Introduce un número válido')" oninput="setCustomValidity('')" aria-describebdy="n" maxlength="10" minlength="10" class="form-control required" placeholder="Teléfono de Casa"
+                                    onchange="getVals(this, 'phone');">
+                            </div>
+                            <div id="pass-info" class="clearfix"></div>
+                        </div>
+                        <!-- /step-->
+
+                        <!-- datos escolares-->
+                        <div class="step">
+                            <h3 class="main_question"><strong>Datos Escolares</strong></h3>
+                            <div class="form-group">
+                                <input type="text" name="school" class="form-control required" placeholder="Escuela de procedencia" onchange="getVals(this, 'school');">
+                            </div>
+
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" name="grade" onchange="getVals(this, 'grade');">
+                                        <option value="">Grado</option>
+                                        <option *ngFor="let grade of gradesList">{{grade.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="pass-info" class="clearfix"></div>
+
+                            <h3 class="main_question"><strong>¿Cómo nos conociste?</strong></h3>
+
+                            <div class="form-group">
+                                <div class="styled-select clearfix">
+                                    <select class="wide required" name="referencia" onchange="getVals(this, 'referencia');">
+                                        <option value="">ALUMNO ACTUAL</option>
+                                        <option *ngFor="let meetUs of meetUsList">{{meetUs.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /step-->
+                        <!-- /step escolar-->
+
+                        <!-- Se muestra la lsita de los Bancos consultando la base -->
+                        <div class="submit step">
+                            <h3 class="main_question"><strong>Finalizar</strong></h3>
+                            <div class="summary">
+                                <ul>
+                                    <li><strong>1</strong>
+                                        <h5>INFO DE PAGO:</h5>
+
+                                        <div class="form-group">
+                                            <div class="styled-select clearfix">
+                                                <select class="wide required" name="bank" onchange="getVals(this, 'grade');">
+													<option value="">Banco</option>
+													<option value=""></option>
+
+													</select>
+                                            </div>
+                                        </div>
+
+                                    </li>
+
+                                    <li><strong>2</strong>
+                                        <h5>FORMA DE PAGO:</h5>
+
+                                        <div class="form-group">
+                                            <div class="styled-select clearfix">
+                                                <select class="wide required" name="bank" onchange="getVals(this, 'grade');">
+													<option value="">MENSUAL / PAGO ÚNICO</option>
+                                                    <option *ngFor="let paymentType of paymentTypeList">{{paymentType.name}}</option>
+													</select>
+                                            </div>
+                                        </div>
+
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="form-group terms">
+                                <label class="container_check">Por favor revisa nuestra <a href="#" data-toggle="modal" data-target="#terms-txt">Política de Privacidad.</a>
+											<input type="checkbox" name="terms" value="Yes" class="required">
+											<span class="checkmark"></span>
+										</label>
+                            </div>
+                        </div>
+                        <!-- /step-->
+                    </div>
+                    <!-- /middle-wizard -->
+                    <div id="bottom-wizard">
+                        <button type="button" name="backward" class="backward">Anterior</button>
+                        <button type="button" name="forward" class="forward">Siguiente</button>
+                        <button type="submit" name="process" class="submit">Enviar</button>
+                    </div>
+                    <!-- /bottom-wizard -->
+                </form>
+            </div>
+            <!-- /Wizard container -->
+        </div>
+        <!-- /content-right-->
+    </div>
+    <!-- /row-->
+</div>
+<!-- /container-fluid -->
+
+<div class="cd-overlay-nav">
+    <span></span>
+</div>
+<!-- /cd-overlay-nav -->
+
+<div class="cd-overlay-content">
+    <span></span>
+</div>
+<!-- /cd-overlay-content -->

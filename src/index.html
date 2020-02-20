@@ -1,13 +1,91 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-  <meta charset="utf-8">
-  <title>Aer0220Form</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="utf-8">
+    <title>Aer0220Form</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- GOOGLE WEB FONT -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600" rel="stylesheet">
+
+    <!-- BASE CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/css/menu.css" rel="stylesheet">
+    <link href="assets/css/style.css" rel="stylesheet">
+    <link href="assets/css/vendors.css" rel="stylesheet">
+
+    <!-- YOUR CUSTOM CSS -->
+    <link href="assets/css/custom.css" rel="stylesheet">
+
+    <!-- MODERNIZR MENU -->
+    <script src="assets/js/modernizr.js"></script>
+
 </head>
+
 <body>
-  <app-root></app-root>
+    <!-- menu -->
+    <div id="preloader">
+        <div data-loader="circle-side"></div>
+    </div>
+    <!-- /Preload -->
+
+    <div id="loader_form">
+        <div data-loader="circle-side-2"></div>
+    </div>
+    <!-- /loader_form -->
+
+    <nav>
+        <ul class="cd-primary-nav">
+            <li><a href="https://aerobotplanet.com/" class="animated_link">INICIO</a></li>
+        </ul>
+    </nav>
+
+    <!-- /menu -->
+    <app-root></app-root>
+
+    <!-- footer -->
+    <a href="#0" class="cd-nav-trigger">Menu<span class="cd-icon"></span></a>
+
+    <!-- /menu button -->
+
+    <!-- Modal terms -->
+
+    <div class="modal fade" id="terms-txt" tabindex="-1" role="dialog" aria-labelledby="termsLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="termsLabel">Aviso de Privacidad</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <p>Aviso de privacidad: Los datos de este formulario son exclusivos y se usan únicamente con el objetivo de identificar, localizar y contactar al titular, así como para contar con un orden de los participantes y brindar el mejor servicio.
+                        Estos datos podrán ser resguardados de igual forma por la institución para posteriores sesiones informativas de la misma.</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn_1" data-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <!-- COMMON SCRIPTS -->
+    <script src="assets/js/jquery-3.2.1.min.js"></script>
+    <script src="assets/js/common_scripts.min.js"></script>
+    <script src="assets/js/velocity.min.js"></script>
+    <script src="assets/js/functions.js"></script>
+
+    <!-- Wizard script -->
+    <script src="assets/js/registration_func.js"></script>
+
 </body>
+
 </html>
