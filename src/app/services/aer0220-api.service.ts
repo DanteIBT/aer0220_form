@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { map } from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,6 +24,12 @@ export class Aer0220ApiService {
   getCities() {
 
     return this.getQuery('cities');
+
+  }
+
+  getGenders() {
+
+    return this.getQuery('genders');
 
   }
 
@@ -48,5 +56,13 @@ export class Aer0220ApiService {
     return this.getQuery('payment_types');
 
   }
+
+
+  postInsert(userData: any) {
+
+    return this.http.post('http://localhost/aer0220_api/students', userData );
+
+  }
+
 
 }

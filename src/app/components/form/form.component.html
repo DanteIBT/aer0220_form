@@ -22,44 +22,57 @@
                     <div id="progressbar"></div>
                 </div>
                 <!-- /top-wizard -->
-                <form id="wrapped" action="submit.php" method="POST">
+                <form [formGroup]="userData" (ngSubmit)="saveChanges()" id="wrapped">
                     <input id="website" name="website" type="text" value="">
                     <!-- Leave for security protection, read docs for details -->
                     <div id="middle-wizard">
                         <div class="step">
                             <h3 class="main_question"><strong>Datos del Alumno</strong></h3>
                             <div class="form-group">
-                                <input type="text" name="first_name" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Nombre (s)" onchange="getVals(this, 'first_name');">
+                                <input type="text" formControlName="name" class="form-control" placeholder="Nombre (s)">
+                                <div *ngIf="!userData.controls['name'].valid">
+                                    Este campo es requerido
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" name="name_paternal" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Apellido Paterno" onchange="getVals(this, 'name_paternal');">
+                                <input type="text" formControlName="name_paternal" class="form-control" placeholder="Apellido Paterno">
+
                             </div>
                             <div class="form-group">
-                                <input type="text" name="name_maternal" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Apellido Materno" onchange="getVals(this, 'name_maternal');">
+                                <input type="text" formControlName="name_maternal" class="form-control" placeholder="Apellido Materno">
                             </div>
 
                             <div class="form-group">
                                 <label>Fecha de nacimiento:</label>
-                                <input type="date" name="birthday_date" class="form-control required" placeholder="Fecha de nacimiento" onchange="getVals(this, 'name_paternal');">
+                                <input type="date" formControlName="birth_date" class="form-control" placeholder="Fecha de nacimiento">
                             </div>
 
-                            <div class="form-group">
-                                <label class="radio-inline"><input type="radio" name="optradio" value="H"> Hombre </label>
-                                <label class="radio-inline"><input type="radio" name="optradio" value="M"> Mujer </label>
-                            </div>
+                            <!--<div class="form-group">
+                                <label class="radio-inline"><input *ngFor="let gender of genderList" formControlName="gender" type="radio" value="{{gender.gender_id}}"> {{ gender.name }} </label>
+                            </div>-->
 
-                            <!-- Se muestra la lsita de ciudades consultando la base -->
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide required" name="city">
+                                    <select class="wide" formControlName="city_id">
                                         <option value="">Ciudad</option>
-                                        <option *ngFor="let city of citiesList">{{city.name}}</option>
+                                        <option *ngFor="let city of citiesList" value="{{city.city_id}}" >{{city.name}}</option>
 									</select>
                                 </div>
                             </div>
+
+
                             <div class="form-group">
-                                <input type="text" name="curp" class="form-control required" placeholder="CURP / ID PERSONAL" onchange="getVals(this, 'curp');">
+                                <div class="styled-select clearfix">
+                                    <select class="wide" formControlName="gender_id">
+                                        <option value="">Género</option>
+                                        <option *ngFor="let gender of genderList" value="{{gender.gender_id}}" >{{ gender.name }}</option>
+									</select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" formControlName="curp" class="form-control" placeholder="CURP / ID PERSONAL">
                             </div>
 
                         </div>
@@ -68,7 +81,7 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Alergias y Condiciones Especiales</strong></h3>
                             <div class="form-group">
-                                <textarea rows="8" name="alergias" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control" placeholder="¿El thinker cuenta con alergias o condiciones que requieran un trato especial?" onchange="getVals(this, 'alergias');"></textarea>
+                                <textarea rows="8" formControlName="allergies" class="form-control" placeholder="¿El thinker cuenta con alergias o condiciones que requieran un trato especial?">s</textarea>
                             </div>
                         </div>
                         <!-- /step-->
@@ -77,32 +90,36 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Datos del Padre o Tutor</strong></h3>
                             <div class="form-group">
-                                <input type="text" name="tutor_name" pattern="^[a-zA-ZñáéíóúÁÉÍÓÚ\s]+$" class="form-control required" placeholder="Nombre Completo" onchange="getVals(this, 'tutor_name');">
+                                <input type="text" formControlName="father_name" class="form-control" placeholder="Nombre Completo">
                             </div>
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide required" name="relationship" onchange="getVals(this, 'city');">
+                                    <select class="wide" formControlName="relationship_id">
                                         <option value="">Parentesco</option>
-                                        <option *ngFor="let relationship of relationshipList">{{relationship.name}}</option>
+                                        <option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_id}}" >{{relationship.name}}</option>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control required" placeholder="Correo Electrónico" onchange="getVals(this, 'email');">
+                                <input type="email" formControlName="email" class="form-control" placeholder="Correo Electrónico">
                             </div>
 
                             <div class="form-group">
-                                <input type="email" name="email" class="form-control required" placeholder="Confirmar Correo" onchange="getVals(this, 'email2');">
+                                <input type="email" class="form-control" placeholder="Confirmar Correo">
                             </div>
                             <div class="form-group">
-                                <input type="phone" name="whatsapp" pattern="[0-9]+" oninvalid="this.setCustomValidity('Introduce un número válido')" oninput="setCustomValidity('')" aria-describebdy="n" maxlength="10" minlength="10" class="form-control required" placeholder="WhatsApp"
-                                    onchange="getVals(this, 'whatsapp');">
+                                <input type="phone" formControlName="whatsapp" class="form-control" placeholder="WhatsApp">
+                                <div *ngIf="!userData.controls['whatsapp'].valid">
+                                    Este campo es requerido
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="phone" name="phone" pattern="[0-9]+" oninvalid="this.setCustomValidity('Introduce un número válido')" oninput="setCustomValidity('')" aria-describebdy="n" maxlength="10" minlength="10" class="form-control required" placeholder="Teléfono de Casa"
-                                    onchange="getVals(this, 'phone');">
+                                <input type="phone" formControlName="home_phone" class="form-control" placeholder="Teléfono de Casa">
+                                <div *ngIf="!userData.controls['home_phone'].valid">
+                                    Este campo es requerido
+                                </div>
                             </div>
                             <div id="pass-info" class="clearfix"></div>
                         </div>
@@ -112,14 +129,15 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Datos Escolares</strong></h3>
                             <div class="form-group">
-                                <input type="text" name="school" class="form-control required" placeholder="Escuela de procedencia" onchange="getVals(this, 'school');">
+                                <input type="text" formControlName="origin_school" class="form-control" placeholder="Escuela de procedencia">
                             </div>
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide required" name="grade" onchange="getVals(this, 'grade');">
+                                    <label>Grado</label>
+                                    <select class="wide" formControlName="grade_id">
                                         <option value="">Grado</option>
-                                        <option *ngFor="let grade of gradesList">{{grade.name}}</option>
+                                        <option *ngFor="let grade of gradesList" value="{{grade.grade_id}}" >{{grade.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -130,9 +148,9 @@
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide required" name="referencia" onchange="getVals(this, 'referencia');">
+                                    <select class="wide" formControlName="meet_us_id">
                                         <option value="">ALUMNO ACTUAL</option>
-                                        <option *ngFor="let meetUs of meetUsList">{{meetUs.name}}</option>
+                                        <option *ngFor="let meetUs of meetUsList" value="{{meetUs.meet_us_id}}" >{{meetUs.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -150,11 +168,10 @@
 
                                         <div class="form-group">
                                             <div class="styled-select clearfix">
-                                                <select class="wide required" name="bank" onchange="getVals(this, 'grade');">
-													<option value="">Banco</option>
-													<option value=""></option>
-
-													</select>
+                                                <select class="wide">
+													<label>Banco</label>
+													<option value="Santander" selected disabled>Santander</option>
+												</select>
                                             </div>
                                         </div>
 
@@ -165,10 +182,9 @@
 
                                         <div class="form-group">
                                             <div class="styled-select clearfix">
-                                                <select class="wide required" name="bank" onchange="getVals(this, 'grade');">
-													<option value="">MENSUAL / PAGO ÚNICO</option>
-                                                    <option *ngFor="let paymentType of paymentTypeList">{{paymentType.name}}</option>
-													</select>
+                                                <select class="wide" formControlName="payment_types_id">
+                                                    <option *ngFor="let paymentType of paymentTypeList" value="{{paymentType.payment_types_id}}">{{paymentType.name}}</option>
+												</select>
                                             </div>
                                         </div>
 
@@ -177,9 +193,9 @@
                             </div>
                             <div class="form-group terms">
                                 <label class="container_check">Por favor revisa nuestra <a href="#" data-toggle="modal" data-target="#terms-txt">Política de Privacidad.</a>
-											<input type="checkbox" name="terms" value="Yes" class="required">
-											<span class="checkmark"></span>
-										</label>
+                                    <input type="checkbox" name="terms" value="Yes" class="">
+                                    <span class="checkmark"></span>
+                                </label>
                             </div>
                         </div>
                         <!-- /step-->
