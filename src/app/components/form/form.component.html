@@ -29,18 +29,17 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Datos del Alumno</strong></h3>
                             <div class="form-group">
-                                <input type="text" formControlName="name" class="form-control" placeholder="Nombre (s)">
-                                <div *ngIf="!userData.controls['name'].valid">
-                                    Este campo es requerido
-                                </div>
+                                <input type="text" formControlName="name" [class.is-invalid]="invalidName" class="form-control" placeholder="Nombre (s)">
+                                <small *ngIf="invalidName" class="text-danger">No se aceptan números ni caracteres especiales</small>
                             </div>
 
                             <div class="form-group">
-                                <input type="text" formControlName="name_paternal" class="form-control" placeholder="Apellido Paterno">
-
+                                <input type="text" formControlName="name_paternal" [class.is-invalid]="invalidNamePaternal" class="form-control" placeholder="Apellido Paterno">
+                                <small *ngIf="invalidNamePaternal" class="text-danger">No se aceptan números ni caracteres especiales</small>
                             </div>
                             <div class="form-group">
-                                <input type="text" formControlName="name_maternal" class="form-control" placeholder="Apellido Materno">
+                                <input type="text" formControlName="name_maternal" [class.is-invalid]="invalidNameMaternal" class="form-control" placeholder="Apellido Materno">
+                                <small *ngIf="invalidNameMaternal" class="text-danger">No se aceptan números ni caracteres especiales</small>
                             </div>
 
                             <div class="form-group">
@@ -72,7 +71,8 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="text" formControlName="curp" class="form-control" placeholder="CURP / ID PERSONAL">
+                                <input type="text" formControlName="curp" [class.is-invalid]="" class="form-control" placeholder="CURP / ID PERSONAL">
+                                <small *ngIf="" class="text-danger"></small>
                             </div>
 
                         </div>
@@ -81,7 +81,8 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Alergias y Condiciones Especiales</strong></h3>
                             <div class="form-group">
-                                <textarea rows="8" formControlName="allergies" class="form-control" placeholder="¿El thinker cuenta con alergias o condiciones que requieran un trato especial?">s</textarea>
+                                <textarea rows="8" formControlName="allergies" [class.is-invalid]="invalidAllergies" class="form-control" placeholder="¿El thinker cuenta con alergias o condiciones que requieran un trato especial?">s</textarea>
+                                <small *ngIf="invalidAllergies" class="text-danger"></small>
                             </div>
                         </div>
                         <!-- /step-->
@@ -90,7 +91,8 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Datos del Padre o Tutor</strong></h3>
                             <div class="form-group">
-                                <input type="text" formControlName="father_name" class="form-control" placeholder="Nombre Completo">
+                                <input type="text" formControlName="father_name" [class.is-invalid]="invalidTutorName" class="form-control" placeholder="Nombre Completo">
+                                <small *ngIf="invalidTutorName" class="text-danger">No se aceptan números ni caracteres especiales</small>
                             </div>
 
                             <div class="form-group">
@@ -103,23 +105,20 @@
                             </div>
 
                             <div class="form-group">
-                                <input type="email" formControlName="email" class="form-control" placeholder="Correo Electrónico">
+                                <input type="email" formControlName="email" [class.is-invalid]="invalidEmail" class="form-control" placeholder="Correo Electrónico">
                             </div>
 
                             <div class="form-group">
-                                <input type="email" class="form-control" placeholder="Confirmar Correo">
+                                <input type="email" formControlName="email2" [class.is-invalid]="invalidEmail2" class="form-control" placeholder="Confirmar Correo">
+                                <small *ngIf="invalidEmail2" class="text-danger">Los correos no coinciden</small>
                             </div>
                             <div class="form-group">
-                                <input type="phone" formControlName="whatsapp" class="form-control" placeholder="WhatsApp">
-                                <div *ngIf="!userData.controls['whatsapp'].valid">
-                                    Este campo es requerido
-                                </div>
+                                <input type="text" formControlName="whatsapp" [class.is-invalid]="invalidWhatsapp" class="form-control" placeholder="WhatsApp">
+                                <small *ngIf="invalidWhatsapp" class="text-danger">Introducir un número válido</small>
                             </div>
                             <div class="form-group">
-                                <input type="phone" formControlName="home_phone" class="form-control" placeholder="Teléfono de Casa">
-                                <div *ngIf="!userData.controls['home_phone'].valid">
-                                    Este campo es requerido
-                                </div>
+                                <input type="phone" formControlName="home_phone" [class.is-invalid]="invalidHomePhone" class="form-control" placeholder="Teléfono de Casa">
+                                <small *ngIf="invalidHomePhone" class="text-danger">Introducir un número válido</small>
                             </div>
                             <div id="pass-info" class="clearfix"></div>
                         </div>
@@ -129,7 +128,8 @@
                         <div class="step">
                             <h3 class="main_question"><strong>Datos Escolares</strong></h3>
                             <div class="form-group">
-                                <input type="text" formControlName="origin_school" class="form-control" placeholder="Escuela de procedencia">
+                                <input type="text" formControlName="origin_school" [class.is-invalid]="invalidOriginSchool" class="form-control" placeholder="Escuela de procedencia">
+                                <small *ngIf="invalidOriginSchool" class="text-danger">Campo Requerido</small>
                             </div>
 
                             <div class="form-group">
@@ -158,7 +158,6 @@
                         <!-- /step-->
                         <!-- /step escolar-->
 
-                        <!-- Se muestra la lsita de los Bancos consultando la base -->
                         <div class="submit step">
                             <h3 class="main_question"><strong>Finalizar</strong></h3>
                             <div class="summary">
@@ -205,6 +204,9 @@
                         <button type="button" name="backward" class="backward">Anterior</button>
                         <button type="button" name="forward" class="forward">Siguiente</button>
                         <button type="submit" name="process" class="submit">Enviar</button>
+                        <pre>
+                            Estado: {{userData.status}}
+                        </pre>
                     </div>
                     <!-- /bottom-wizard -->
                 </form>

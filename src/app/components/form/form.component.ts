@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Aer0220ApiService } from '../../services/aer0220-api.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-form',
@@ -20,12 +19,15 @@ export class FormComponent  {
 
   userData: FormGroup;
 
-  pattern = '^[a-zA-ZñáéíóúÁÉÍÓÚ\s ]{2,100}';    // Text
-  patternCel = '[0-9]+';                         // Cel and phone number
-  patternCurp = '{18,18}';                       // curp
+  pattern = '^[a-zA-ZñáéíóúÁÉÍÓÚ\s ]{2,150}';                            // Text
+  patternCel = '[0-9]+';                                                 // Cel and phone number
+  patternEmail = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$'; // Email
+  // curp
+  patternCurp = '^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$';
+  patternCurp1 = '^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$';
 
-  constructor(private aer0220: Aer0220ApiService,  private router: Router) {
-
+  constructor(private aer0220: Aer0220ApiService,  private router: Router, private fb: FormBuilder) {
+    // View catalog information
     this.aer0220.getCities()
         .subscribe ( ( data: any ) => { this.citiesList = data; });
 
@@ -44,43 +46,85 @@ export class FormComponent  {
     this.aer0220.getPaymentTypes()
         .subscribe ( ( data: any ) => { this.paymentTypeList = data; });
 
-    this.userData = new FormGroup({
-      'name': new FormControl('Dante', [Validators.required, Validators.pattern(this.pattern)]),
-      'name_paternal': new FormControl('Barreda', [Validators.required, Validators.pattern(this.pattern)]),
-      'name_maternal': new FormControl('Tovar', [Validators.required, Validators.pattern(this.pattern)]),
-      'curp': new FormControl('BATD960401HPLRVN02', Validators.required),
-      'birth_date': new FormControl('1996-04-01', Validators.required),
-      'allergies': new FormControl('Ninguna', Validators.required),
-      'father_name': new FormControl('Raul barreda Avila', Validators.required),
-      'email': new FormControl('learsi6474@hotmail.com', Validators.required),
-      'whatsapp': new FormControl('2228073873', [Validators.required, Validators.pattern(this.patternCel)]),
-      'home_phone': new FormControl('2228073873', [Validators.required, Validators.pattern(this.patternCel)]),
-      'origin_school': new FormControl('BUAP', Validators.required),
-      'grade_id': new FormControl('1', Validators.required),
-      'meet_us_id': new FormControl('1', Validators.required),
-      'relationship_id': new FormControl('1', Validators.required),
-      'gender_id': new FormControl('1', Validators.required),
-      'city_id': new FormControl('4', Validators.required),
-      'payment_types_id': new FormControl('2', Validators.required)
-
-    });
+    // Call group form
+    this.createForm();
 
   }
 
-  saveChanges() {
+  // Form validation
+  get invalidName() {
+    return this.userData.get('name').invalid && this.userData.get('name').touched;
+  }
+  get invalidNamePaternal() {
+    return this.userData.get('name_paternal').invalid && this.userData.get('name_paternal').touched;
+  }
+  get invalidNameMaternal() {
+    return this.userData.get('name_maternal').invalid && this.userData.get('name_maternal').touched;
+  }
+  get invalidCurp() {
+    return this.userData.get('curp').invalid && this.userData.get('curp').touched;
+  }
+  get invalidAllergies() {
+    return this.userData.get('allergies').invalid && this.userData.get('allergies').touched;
+  }
+  get invalidTutorName() {
+    return this.userData.get('father_name').invalid && this.userData.get('father_name').touched;
+  }
+  get invalidEmail() {
+    return this.userData.get('email').invalid && this.userData.get('email').touched;
+  }
+  get invalidEmail2() { // Validate that the emails are the same
+    const email  = this.userData.get('email').value;
+    const email2 = this.userData.get('email2').value;
 
-    console.log(this.userData.value);
+    return (email === email2) ? false : true;
+  }
+  get invalidWhatsapp() {
+    return this.userData.get('whatsapp').invalid && this.userData.get('whatsapp').touched;
+  }
+  get invalidHomePhone() {
+    return this.userData.get('home_phone').invalid && this.userData.get('home_phone').touched;
+  }
+  get invalidOriginSchool() {
+    return this.userData.get('origin_school').invalid && this.userData.get('origin_school').touched;
+  }
+
+
+  createForm() {
+    this.userData = this.fb.group({
+      name            : ['Dante', [Validators.required, Validators.pattern(this.pattern)]],
+      name_paternal   : ['Barreda', [Validators.required, Validators.pattern(this.pattern)]],
+      name_maternal   : ['Tovar', [Validators.required, Validators.pattern(this.pattern)]],
+      curp            : ['BATD960401HPLRVN07', [Validators.required]],
+      birth_date      : ['1996-04-01', Validators.required],
+      allergies       : ['Ninguna', Validators.required],
+      father_name     : ['Raul barreda Avila', [Validators.required, Validators.pattern(this.pattern)]],
+      email           : ['learsi6474@hotmail.com', [Validators.required, Validators.pattern(this.patternEmail)]],
+      email2          : ['learsi6474@hotmail.com', [Validators.required, Validators.pattern(this.patternEmail)]],
+      whatsapp        : ['2228073873', [Validators.required, Validators.pattern(this.patternCel)]],
+      home_phone      : ['2228073873', [Validators.required, Validators.pattern(this.patternCel)]],
+      origin_school   : ['BUAP', Validators.required],
+      grade_id        : ['1', Validators.required],
+      meet_us_id      : ['1', Validators.required],
+      relationship_id : ['1', Validators.required],
+      gender_id       : ['1', Validators.required],
+      city_id         : ['4', Validators.required],
+      payment_types_id: ['1', Validators.required]
+    });
+  }
+
+  // Send information
+  saveChanges() {
+    // console.log(this.userData);
+    // console.log(this.userData.value);
 
     this.aer0220.postInsert(this.userData.value)
     .subscribe ( ( data: any ) => {
-      console.log('Redirigir', data);
       // this.router.navigateByUrl('/ticket');
     }, (err) => {
       console.log(err);
 
     });
-
   }
-
 
 }

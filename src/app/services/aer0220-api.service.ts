@@ -12,7 +12,7 @@ export class Aer0220ApiService {
     console.log('Aer0220ApiService Listo!!');
   }
 
-
+  // Get catalog information
   getQuery( query: string) {
 
     const url = `http://localhost/aer0220_api/catalogues/${ query }`;
@@ -57,7 +57,7 @@ export class Aer0220ApiService {
 
   }
 
-
+  // Insert student
   postInsert(userData: any) {
 
     return this.http.post('http://localhost/aer0220_api/students', userData );
