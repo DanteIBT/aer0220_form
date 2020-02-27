@@ -26,24 +26,24 @@ export class FormComponent  {
   constructor(private aer0220: Aer0220ApiService,  private router: Router, private fb: FormBuilder) {
     // View catalog information
     this.aer0220.getCities()
-        .subscribe ( ( data: any ) => { this.citiesList = data; });
+        .then ( ( data: any ) => { this.citiesList = data; });
 
     this.aer0220.getGenders()
-        .subscribe ( ( data: any ) => { this.genderList = data; console.log(this.genderList);});
+        .then ( ( data: any ) => { this.genderList = data; });
 
     this.aer0220.getRelationships()
-        .subscribe ( ( data: any ) => { this.relationshipList = data; });
+        .then ( ( data: any ) => { this.relationshipList = data; });
 
     this.aer0220.getGrades()
-        .subscribe ( ( data: any ) => { this.gradesList = data; });
+        .then ( ( data: any ) => { this.gradesList = data; });
 
     this.aer0220.getMeetUs()
-        .subscribe ( ( data: any ) => { this.meetUsList = data; });
+        .then ( ( data: any ) => { this.meetUsList = data; });
 
     this.aer0220.getPaymentTypes()
-        .subscribe ( ( data: any ) => { this.paymentTypeList = data; });
+        .then ( ( data: any ) => { this.paymentTypeList = data; });
 
-    // Call group form
+    // Call Form Group
     this.createForm();
 
   }
@@ -89,34 +89,32 @@ export class FormComponent  {
 
   createForm() {
     this.userData = this.fb.group({
-      name            : ['Dante', [Validators.required, Validators.pattern(this.pattern)]],
-      name_paternal   : ['Barreda', [Validators.required, Validators.pattern(this.pattern)]],
-      name_maternal   : ['Tovar', [Validators.required, Validators.pattern(this.pattern)]],
-      curp            : ['BATD960401HPLRVN07', [Validators.required]],
-      birth_date      : ['1996-04-01', Validators.required],
-      allergies       : ['Ninguna', Validators.required],
-      father_name     : ['Raul barreda Avila', [Validators.required, Validators.pattern(this.pattern)]],
-      email           : ['learsi6474@hotmail.com', [Validators.required, Validators.pattern(this.patternEmail)]],
-      email2          : ['learsi6474@hotmail.com', [Validators.required, Validators.pattern(this.patternEmail)]],
-      whatsapp        : ['2228073873', [Validators.required, Validators.pattern(this.patternCel)]],
-      home_phone      : ['2228073873', [Validators.required, Validators.pattern(this.patternCel)]],
-      origin_school   : ['BUAP', Validators.required],
-      grade_id        : ['1', Validators.required],
-      meet_us_id      : ['1', Validators.required],
-      relationship_id : ['1', Validators.required],
-      gender_id       : ['1', Validators.required],
-      city_id         : ['4', Validators.required],
-      payment_types_id: ['1', Validators.required]
+      name            : ['', [Validators.required, Validators.pattern(this.pattern)]],
+      name_paternal   : ['', [Validators.required, Validators.pattern(this.pattern)]],
+      name_maternal   : ['', [Validators.required, Validators.pattern(this.pattern)]],
+      curp            : ['', Validators.required],
+      birth_date      : ['', Validators.required],
+      allergies       : ['', Validators.required],
+      father_name     : ['', [Validators.required, Validators.pattern(this.pattern)]],
+      email           : ['', [Validators.required, Validators.pattern(this.patternEmail)]],
+      email2          : ['', [Validators.required, Validators.pattern(this.patternEmail)]],
+      whatsapp        : ['', [Validators.required, Validators.pattern(this.patternCel)]],
+      home_phone      : ['', [Validators.required, Validators.pattern(this.patternCel)]],
+      origin_school   : ['', Validators.required],
+      grade_id        : ['', Validators.required],
+      meet_us_id      : ['', Validators.required],
+      relationship_id : ['', Validators.required],
+      gender_id       : ['', Validators.required],
+      city_id         : ['', Validators.required],
+      payment_types_id: ['', Validators.required]
     });
   }
 
   // Send information
   saveChanges() {
-    // console.log(this.userData);
-    // console.log(this.userData.value);
 
     this.aer0220.postInsert(this.userData.value)
-    .subscribe ( ( data: any ) => {
+    .then ( ( data: any ) => {
       // this.router.navigateByUrl('/ticket');
     }, (err) => {
       console.log(err);

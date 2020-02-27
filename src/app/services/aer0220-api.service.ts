@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Aer0220ApiService {
 
-  constructor(private http: HttpClient) {
-    console.log('Aer0220ApiService Listo!!');
-  }
+  constructor(private http: HttpClient) {}
 
   // Get catalog information
   getQuery( query: string) {
 
     const url = `http://localhost/aer0220_api/catalogues/${ query }`;
 
-    return this.http.get( url );
+    return this.http.get( url ).toPromise();
 
   }
 
@@ -60,7 +57,7 @@ export class Aer0220ApiService {
   // Insert student
   postInsert(userData: any) {
 
-    return this.http.post('http://localhost/aer0220_api/students', userData );
+    return this.http.post('http://localhost/aer0220_api/students', userData ).toPromise();
 
   }
 
