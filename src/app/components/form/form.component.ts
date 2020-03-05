@@ -112,10 +112,11 @@ export class FormComponent  {
 
   // Send information
   saveChanges() {
+    // console.log(this.userData.value);
 
     this.aer0220.postInsert(this.userData.value)
     .then ( ( data: any ) => {
-      // this.router.navigateByUrl('/ticket');
+      location.href = 'http://aerobotplanet.com/ticket/';
     }, (err) => {
       console.log(err);
 

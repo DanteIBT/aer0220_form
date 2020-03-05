@@ -53,7 +53,7 @@
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide" formControlName="city_id">
+                                    <select class="wide form-control" formControlName="city_id">
                                         <option value="">Ciudad</option>
                                         <option *ngFor="let city of citiesList" value="{{city.city_id}}" >{{city.name}}</option>
 									</select>
@@ -63,7 +63,7 @@
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide" formControlName="gender_id">
+                                    <select class="wide form-control" formControlName="gender_id">
                                         <option value="">Género</option>
                                         <option *ngFor="let gender of genderList" value="{{gender.gender_id}}" >{{ gender.name }}</option>
 									</select>
@@ -96,7 +96,7 @@
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide" formControlName="relationship_id">
+                                    <select class="wide form-control" formControlName="relationship_id">
                                         <option value="">Parentesco</option>
                                         <option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_id}}" >{{relationship.name}}</option>
                                     </select>
@@ -134,7 +134,7 @@
                             <div class="form-group">
                                 <div class="styled-select clearfix">
                                     <label>Grado</label>
-                                    <select class="wide" formControlName="grade_id">
+                                    <select class="wide form-control" formControlName="grade_id">
                                         <option value="">Grado</option>
                                         <option *ngFor="let grade of gradesList" value="{{grade.grade_id}}" >{{grade.name}}</option>
                                     </select>
@@ -147,7 +147,7 @@
 
                             <div class="form-group">
                                 <div class="styled-select clearfix">
-                                    <select class="wide" formControlName="meet_us_id">
+                                    <select class="wide form-control" formControlName="meet_us_id">
                                         <option value="">ALUMNO ACTUAL</option>
                                         <option *ngFor="let meetUs of meetUsList" value="{{meetUs.meet_us_id}}" >{{meetUs.name}}</option>
                                     </select>
@@ -166,7 +166,7 @@
 
                                         <div class="form-group">
                                             <div class="styled-select clearfix">
-                                                <select class="wide">
+                                                <select class="wide form-control">
 													<label>Banco</label>
 													<option value="Santander" selected disabled>Santander</option>
 												</select>
@@ -180,7 +180,7 @@
 
                                         <div class="form-group">
                                             <div class="styled-select clearfix">
-                                                <select class="wide" formControlName="payment_types_id">
+                                                <select class="wide form-control" formControlName="payment_types_id">
                                                     <option *ngFor="let paymentType of paymentTypeList" value="{{paymentType.payment_types_id}}">{{paymentType.name}}</option>
 												</select>
                                             </div>
@@ -191,7 +191,7 @@
                             </div>
                             <div class="form-group terms">
                                 <label class="container_check">Por favor revisa nuestra <a href="#" data-toggle="modal" data-target="#terms-txt">Política de Privacidad.</a>
-                                    <input type="checkbox" name="terms" value="Yes" class="">
+                                    <input type="checkbox" name="terms" value="Yes" class="" required>
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
@@ -203,9 +203,6 @@
                         <button type="button" name="backward" class="backward">Anterior</button>
                         <button type="button" name="forward" class="forward">Siguiente</button>
                         <button type="submit" name="process" class="submit">Enviar</button>
-                        <pre>
-                            Estado: {{userData.status}}
-                        </pre>
                     </div>
                     <!-- /bottom-wizard -->
                 </form>

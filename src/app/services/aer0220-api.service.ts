@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class Aer0220ApiService {
   // Get catalog information
   getQuery( query: string) {
 
-    const url = `http://localhost/aer0220_api/catalogues/${ query }`;
+    const url = `${environment.apiUrl}/catalogues/${ query }`;
 
     return this.http.get( url ).toPromise();
 
@@ -57,7 +57,7 @@ export class Aer0220ApiService {
   // Insert student
   postInsert(userData: any) {
 
-    return this.http.post('http://localhost/aer0220_api/students', userData ).toPromise();
+    return this.http.post(`${environment.apiUrl}/students/`, userData ).toPromise();
 
   }
 
